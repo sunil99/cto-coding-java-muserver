@@ -1,5 +1,7 @@
 # cto-coding-java-muserver
 
+mu-server documentation: https://muserver.io/
+
 ## Coding exrercise: Product UI Microservice
 
 You are writing a small microservice that provides UI-ready information about **Products** combined with **Inventory** data.
