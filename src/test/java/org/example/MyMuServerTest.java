@@ -1,10 +1,12 @@
 package org.example;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -38,25 +40,31 @@ public class MyMuServerTest {
 
     @Test
     public void testRootEndpoint() throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(server.getUri().toURL())
-                .build();
-        var response = client.newCall(request).execute();
-        assertThat(response.code(), equalTo(200));
-        assertThat(response.body(), notNullValue());
-        assertThat(response.body().string(), equalTo("Hello, World!"));
+        HttpResponse<String> response;
+        try (HttpClient httpClient = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(server.getUri())
+                    .GET()
+                    .build();
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        }
+
+        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.body(), equalTo("Hello, World!"));
     }
 
     @Test
     public void testHealthEndpoint() throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(server.getUri().resolve("/health").toURL())
-                .build();
-        var response = client.newCall(request).execute();
-        assertThat(response.code(), equalTo(200));
-        assertThat(response.body(), notNullValue());
-        assertThat(response.body().string(), equalTo("{\"isAvailable\":true}"));
+        HttpResponse<String> response;
+        try (HttpClient httpClient = HttpClient.newHttpClient()) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(server.getUri().resolve("/health"))
+                    .GET()
+                    .build();
+            response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        }
+
+        assertThat(response.statusCode(), equalTo(200));
+        assertThat(response.body(), equalTo("{\"isAvailable\":true}"));
     }
 }
