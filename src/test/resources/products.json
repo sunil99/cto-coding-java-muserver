@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Alpha Shoe",
+        "description": "Lightweight running shoe",
+        "price": 79.99
+    },
+    {
+        "id": 2,
+        "name": "Beta Sneaker",
+        "description": "Comfortable casual sneaker",
+        "price": 59.99
+    },
+    {
+        "id": 3,
+        "name": "Gamma Boot",
+        "description": "Durable hiking boot",
+        "price": 120.00
+    }
+]
