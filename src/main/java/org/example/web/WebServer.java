@@ -1,29 +1,41 @@
-package org.example;
+package org.example.web;
 
-import io.muserver.Method;
 import io.muserver.MuServer;
 import io.muserver.MuServerBuilder;
+import io.muserver.rest.RestHandlerBuilder;
+import org.example.App;
+import org.example.web.resources.JaxRSResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class MyMuServer {
+public class WebServer {
 
-    private static final Logger log = LoggerFactory.getLogger(MyMuServer.class);
+    private static final Logger log = LoggerFactory.getLogger(App.class);
 
     final private AtomicReference<MuServer> server = new AtomicReference<>();
 
+    final private Set<JaxRSResource> resources = new LinkedHashSet<>();
 
+    private Boolean running = false;
+
+    public WebServer addResource(JaxRSResource resource) {
+        resources.add(resource);
+        return this;
+    }
 
     public void start() {
-        MuServer myServer = MuServerBuilder.httpServer()
-                .addHandler(Method.GET, "/", (_, res, _) -> res.write("Hello, World!"))
-                .addHandler(Method.GET, "/health", (_, res, _) -> res.write("{\"isAvailable\":true}"))
-                .start();
+        MuServerBuilder myServer = MuServerBuilder.httpServer();
+        for (JaxRSResource resource : resources) {
+            myServer = myServer.addHandler(RestHandlerBuilder.restHandler(resource));
+        }
 
-        server.set(myServer);
+        server.set(myServer.start());
+        running = true;
 
         log.info("Started server at {}", server.get().uri());
     }
@@ -34,6 +46,7 @@ public class MyMuServer {
             muServer.stop();
             log.info("Stopped server at {}", muServer.uri());
         }
+        running = false;
     }
 
     public URI getUri() {
@@ -50,15 +63,6 @@ public class MyMuServer {
     }
 
     public boolean isRunning() {
-        MuServer muServer = server.get();
-        return muServer != null && getUri() != null;
+        return running;
     }
-
-
-    public static void main(String[] args) {
-        log.info("Hello and welcome!");
-
-        new MyMuServer().start();
-    }
-
 }
