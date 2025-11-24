@@ -68,12 +68,12 @@ class WebServerTest {
     @Test
     @DisplayName("can stop and start the webserver")
     void stopStart() {
-        int previousPort = server.getPort();
+        int previousPort = server.port();
         server.stop();
         assertThat(server.isRunning(), is(false));
         server.start();
         assertThat(server.isRunning(), is(true));
-        assertThat(server.getPort(), is(not(previousPort)));
+        assertThat(server.port(), is(not(previousPort)));
     }
 
     @Test
@@ -86,13 +86,13 @@ class WebServerTest {
     @Test
     @DisplayName("webserver has a valid URI after start")
     void uri() {
-        assertThat(server.uri().toString(), equalTo("http://localhost:" + server.getPort()));
+        assertThat(server.uri().toString(), equalTo("http://localhost:" + server.port()));
     }
 
     @Test
     @DisplayName("webserver has a valid port after start")
-    void getPort() {
-        assertThat(server.getPort(), greaterThan(0));
+    void port() {
+        assertThat(server.port(), greaterThan(0));
     }
 
     @Test

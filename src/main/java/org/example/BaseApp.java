@@ -12,8 +12,8 @@ public abstract class BaseApp {
         return webServer.isRunning();
     }
 
-    public int getPort() {
-        return webServer.getPort();
+    public int port() {
+        return webServer.port();
     }
 
     public URI uri() {

@@ -58,7 +58,7 @@ public class WebServer {
         }
     }
 
-    public int getPort() {
+    public int port() {
         return uri().getPort();
     }
 

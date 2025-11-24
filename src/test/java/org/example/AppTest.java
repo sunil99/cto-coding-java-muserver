@@ -27,7 +27,7 @@ public class AppTest {
     @Test
     @DisplayName("getPort returns a valid port number")
     public void getPort() {
-        assertThat(app.getPort(), greaterThan(0));
+        assertThat(app.port(), greaterThan(0));
     }
 
     @Test
