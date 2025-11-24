@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "id": 1,
+      "name": "Alpha Shoe",
+      "description": "Lightweight running shoe",
+      "price": 79.99,
+      "inventory": {
+        "warehouse": "LON-1",
+        "qty": 12,
+        "lastUpdated": "2025-11-01T12:00:00Z"
+      },
+      "availability": "IN_STOCK",
+      "priceWithTax": 95.99
+    },
+    {
+      "id": 2,
+      "name": "Beta Sneaker",
+      "description": "Comfortable casual sneaker",
+      "price": 59.99,
+      "inventory":   {
+        "warehouse": "LON-1",
+        "qty": 0,
+        "lastUpdated": "2025-11-01T12:00:00Z"
+      },
+      "availability": "OUT_OF_STOCK",
+      "priceWithTax": 71.99
+    },
+    {
+      "id": 3,
+      "name": "Gamma Boot",
+      "description": "Durable hiking boot",
+      "price": 120.00,
+      "inventory": null,
+      "availability": "UNKNOWN",
+      "priceWithTax": 144.00
+    }
+  ],
+  "errors": [
+    { "id": 3, "message": "Inventory not found" }
+  ]
+}

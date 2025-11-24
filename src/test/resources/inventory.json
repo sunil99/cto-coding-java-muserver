@@ -8,13 +8,7 @@
   {
     "productId": 2,
     "warehouse": "LON-1",
-    "qty": 30,
-    "lastUpdated": "2025-11-01T12:00:00Z"
-  },
-  {
-    "productId": 3,
-    "warehouse": "LON-1",
-    "qty": 5,
+    "qty": 0,
     "lastUpdated": "2025-11-01T12:00:00Z"
   }
 ]

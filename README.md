@@ -23,10 +23,6 @@ You are writing a small microservice that provides UI-ready information about **
 
     * Return a combined JSON array to the UI.
 
-    * Be robust: handle missing upstream data, transient failures (retry with backoff), and partial results (return partial results and an errors array).
-
-    * Be testable and structured with clear separation: controller → service → clients.
-
 ### Upstream sample responses
 
 **GET /api/products/1**
@@ -73,16 +69,29 @@ The microservice should return data in the following format:
     },
     {
       "id": 2,
-      "name": "Beta Sock",
-      "description": "Thermal sock",
-      "price": 9.99,
+      "name": "Beta Sneaker",
+      "description": "Comfortable casual sneaker",
+      "price": 59.99,
+      "inventory":   {
+        "warehouse": "LON-1",
+        "qty": 0,
+        "lastUpdated": "2025-11-01T12:00:00Z"
+      },
+      "availability": "OUT_OF_STOCK",
+      "priceWithTax": 71.99
+    },
+    {
+      "id": 3,
+      "name": "Gamma Boot",
+      "description": "Durable hiking boot",
+      "price": 120.00,
       "inventory": null,
       "availability": "UNKNOWN",
-      "priceWithTax": 11.99
+      "priceWithTax": 144.00
     }
   ],
   "errors": [
-    { "id": 2, "message": "Inventory not found" }
+    { "id": 3, "message": "Inventory not found" }
   ]
 }
 
