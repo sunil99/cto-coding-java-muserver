@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 public class MockInventoryService {
 
-    private static Logger log = LoggerFactory.getLogger(MockInventoryService.class);
+    private static final Logger log = LoggerFactory.getLogger(MockInventoryService.class);
 
     private final WebServer service;
     private final Map<Integer, JSONObject> inventory;
