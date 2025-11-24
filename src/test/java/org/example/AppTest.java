@@ -53,7 +53,7 @@ public class AppTest {
             HttpResponse<String> response;
             try (HttpClient httpClient = HttpClient.newHttpClient()) {
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(app.getUri())
+                        .uri(app.uri())
                         .GET()
                         .build();
                 response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -69,7 +69,7 @@ public class AppTest {
             HttpResponse<String> response;
             try (HttpClient httpClient = HttpClient.newHttpClient()) {
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(app.getUri().resolve("/health"))
+                        .uri(app.uri().resolve("/health"))
                         .GET()
                         .build();
                 response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());

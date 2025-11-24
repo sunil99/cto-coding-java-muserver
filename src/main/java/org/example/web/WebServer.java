@@ -49,7 +49,7 @@ public class WebServer {
         running = false;
     }
 
-    public URI getUri() {
+    public URI uri() {
         MuServer muServer = server.get();
         if (muServer != null) {
             return muServer.uri();
@@ -59,7 +59,7 @@ public class WebServer {
     }
 
     public int getPort() {
-        return getUri().getPort();
+        return uri().getPort();
     }
 
     public boolean isRunning() {

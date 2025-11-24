@@ -4,7 +4,7 @@ import org.example.web.WebServer;
 
 import java.net.URI;
 
-public abstract class Boilerplate {
+public abstract class BaseApp {
 
     protected WebServer webServer;
 
@@ -16,7 +16,7 @@ public abstract class Boilerplate {
         return webServer.getPort();
     }
 
-    public URI getUri() {
-        return webServer.getUri();
+    public URI uri() {
+        return webServer.uri();
     }
 }

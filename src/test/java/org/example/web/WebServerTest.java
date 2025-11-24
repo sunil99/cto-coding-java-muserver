@@ -53,7 +53,7 @@ class WebServerTest {
             HttpResponse<String> response;
             try (var httpClient = java.net.http.HttpClient.newHttpClient()) {
                 var request = java.net.http.HttpRequest.newBuilder()
-                        .uri(java.net.URI.create(server.getUri() + "/test"))
+                        .uri(java.net.URI.create(server.uri() + "/test"))
                         .GET()
                         .build();
                 response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -85,8 +85,8 @@ class WebServerTest {
 
     @Test
     @DisplayName("webserver has a valid URI after start")
-    void getUri() {
-        assertThat(server.getUri().toString(), equalTo("http://localhost:" + server.getPort()));
+    void uri() {
+        assertThat(server.uri().toString(), equalTo("http://localhost:" + server.getPort()));
     }
 
     @Test

@@ -6,7 +6,7 @@ import org.example.web.resources.RootResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class App extends Boilerplate {
+public class App extends BaseApp {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
@@ -19,7 +19,7 @@ public class App extends Boilerplate {
                 .addResource(new HealthResource());
         webServer.start();
 
-        log.info("Application started at {}", webServer.getUri());
+        log.info("Application started at {}", webServer.uri());
     }
 
     public void stop() {
