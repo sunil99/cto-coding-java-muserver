@@ -29,11 +29,11 @@ public class MockInventoryService {
         service = new WebServer()
                 .addResource(new InventoryResource(inventory));
 
-        loadMockInventory("/inventory.json");
+        loadMockData();
     }
 
-    private void loadMockInventory(String path) throws URISyntaxException, IOException {
-        String inventoryData = FileResourceReader.readResourceToString(path);
+    private void loadMockData() throws URISyntaxException, IOException {
+        String inventoryData = FileResourceReader.readResourceToString("/inventory.json");
 
         JSONArray inventoryJSON = new JSONArray(inventoryData);
         Map<Integer, JSONObject> result = StreamSupport.stream(inventoryJSON.spliterator(), false)

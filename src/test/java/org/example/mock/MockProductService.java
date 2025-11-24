@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 public class MockProductService {
 
-    private static Logger log = LoggerFactory.getLogger(MockProductService.class);
+    private static final Logger log = LoggerFactory.getLogger(MockProductService.class);
 
     private final WebServer service;
     private final Map<Integer, JSONObject> products;
@@ -29,11 +29,11 @@ public class MockProductService {
         service = new WebServer()
                 .addResource(new ProductResource(products));
 
-        loadMockProducts("/products.json");
+        loadMockData();
     }
 
-    private void loadMockProducts(String path) throws URISyntaxException, IOException {
-        String data = FileResourceReader.readResourceToString(path);
+    private void loadMockData() throws URISyntaxException, IOException {
+        String data = FileResourceReader.readResourceToString("/products.json");
 
         JSONArray jsonArray = new JSONArray(data);
         Map<Integer, JSONObject> result = StreamSupport.stream(jsonArray.spliterator(), false)
