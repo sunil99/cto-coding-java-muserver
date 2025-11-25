@@ -5,6 +5,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.List;
+
 @Path("/")
 public class RootResource implements JaxRSResource {
 
@@ -12,5 +14,10 @@ public class RootResource implements JaxRSResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello, World!";
+    }
+
+    @Override
+    public List<String> paths() {
+        return List.of("/");
     }
 }

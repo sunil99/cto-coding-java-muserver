@@ -5,6 +5,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+import java.util.List;
+
 @Path("/health")
 public class HealthResource implements JaxRSResource {
 
@@ -12,5 +14,10 @@ public class HealthResource implements JaxRSResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String healthCheck() {
         return "{\"isAvailable\":true}";
+    }
+
+    @Override
+    public List<String> paths() {
+        return List.of("/health");
     }
 }

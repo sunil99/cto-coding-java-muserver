@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -43,25 +44,6 @@ public class MockInventoryService {
         this.inventory.putAll(result);
     }
 
-
-    public URI uri() {
-        return service.uri();
-    }
-
-    public void stop() {
-        service.stop();
-        log.info("MockInventoryService stopped.");
-    }
-
-    public void start() {
-        service.start();
-        log.info("MockInventoryService started at {}", service.uri());
-    }
-
-    public boolean isRunning() {
-        return service.isRunning();
-    }
-
     @Path("/api/inventory")
     public static class InventoryResource implements JaxRSResource {
 
@@ -85,6 +67,29 @@ public class MockInventoryService {
             }
             return json.toString(4);
         }
+
+        @Override
+        public List<String> paths() {
+            return List.of("/api/inventory/{id}");
+        }
+    }
+
+    public URI uri() {
+        return service.uri();
+    }
+
+    public void stop() {
+        service.stop();
+        log.info("MockInventoryService stopped.");
+    }
+
+    public void start() {
+        service.start();
+        log.info("MockInventoryService started at {}", service.uri());
+    }
+
+    public boolean isRunning() {
+        return service.isRunning();
     }
 
     public static void main(String[] args) throws URISyntaxException, IOException {

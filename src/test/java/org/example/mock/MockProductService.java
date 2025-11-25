@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -43,25 +44,6 @@ public class MockProductService {
         this.products.putAll(result);
     }
 
-
-    public URI uri() {
-        return service.uri();
-    }
-
-    public void stop() {
-        service.stop();
-        log.info("MockProductService stopped.");
-    }
-
-    public void start() {
-        service.start();
-        log.info("MockProductService started at {}", service.uri());
-    }
-
-    public boolean isRunning() {
-        return service.isRunning();
-    }
-
     @Path("/api/products")
     public static class ProductResource implements JaxRSResource {
 
@@ -86,8 +68,29 @@ public class MockProductService {
             return json.toString(4);
         }
 
+        @Override
+        public List<String> paths() {
+            return List.of("/api/products/{id}");
+        }
     }
 
+    public URI uri() {
+        return service.uri();
+    }
+
+    public void stop() {
+        service.stop();
+        log.info("MockProductService stopped.");
+    }
+
+    public void start() {
+        service.start();
+        log.info("MockProductService started at {}", service.uri());
+    }
+
+    public boolean isRunning() {
+        return service.isRunning();
+    }
     public static void main(String[] args) throws URISyntaxException, IOException {
         var service = new MockProductService();
         service.start();

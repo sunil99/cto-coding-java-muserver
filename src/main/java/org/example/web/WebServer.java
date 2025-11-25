@@ -1,7 +1,6 @@
 package org.example.web;
 
-import io.muserver.MuServer;
-import io.muserver.MuServerBuilder;
+import io.muserver.*;
 import io.muserver.rest.RestHandlerBuilder;
 import org.example.App;
 import org.example.web.resources.JaxRSResource;
@@ -12,6 +11,9 @@ import java.net.URI;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
+
+import static java.lang.String.join;
 
 public class WebServer {
 
@@ -33,11 +35,28 @@ public class WebServer {
         for (JaxRSResource resource : resources) {
             myServer = myServer.addHandler(RestHandlerBuilder.restHandler(resource));
         }
+        myServer.withExceptionHandler((muRequest, muResponse, throwable) -> {
+            log.error("Unhandled exception for request: " + muRequest.method() + " " + muRequest.uri(), throwable);
+            return false;
+        });
 
         server.set(myServer.start());
         running = true;
 
         log.info("Started server at {}", server.get().uri());
+        log.info("Registered resources:");
+        log.info("-------------------------------------------------");
+        log.info(getPaths());
+        log.info("-------------------------------------------------");
+    }
+
+    private String getPaths() {
+        return resources.stream()
+                .map(r -> "\n" + r.getResourceName() + "\n" +
+                        r.paths().stream()
+                                .map(p -> uri()+p+"\n")
+                                .collect(Collectors.joining("\n")))
+                .collect(Collectors.joining());
     }
 
     public void stop() {

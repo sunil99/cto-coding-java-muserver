@@ -6,13 +6,23 @@ import org.example.web.resources.RootResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class App extends BaseApp {
+import java.net.URI;
+
+public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
+    private WebServer webServer;
+
+    public App(URI productServiceUri, URI inventoryServiceUri) {
+        // You can use the provided URIs to configure your application
+
+    }
+
     public void start() {
         log.info("Application starting...");
-        // You can add bootstrap initialisation here
+        // TODO Add required api resource (same as a controller in Spring) here for your application.
+        //  Example RootResource and HealthResource have been added.
 
         webServer = new WebServer()
                 .addResource(new RootResource())
@@ -30,7 +40,20 @@ public class App extends BaseApp {
         log.info("Application stopped successfully.");
     }
 
+    // helper methods
+    public Boolean isRunning() {
+        return webServer.isRunning();
+    }
+
+    public URI uri() {
+        return webServer.uri();
+    }
+
     public static void main(String[] args) {
-        new App().start();
+        // You can use configuration to pass actual base URIs. The ones below are just examples and won't work.
+        // Focus on the tests to see how the application interacts with mock services.
+        URI productServiceUri = URI.create("http://host:8081");
+        URI inventoryServiceUri = URI.create("http://host:8082");
+        new App(productServiceUri, inventoryServiceUri).start();
     }
 }

@@ -1,8 +1,16 @@
-# cto-coding-java-muserver
+# Coding Exercise: Product UI Microservice
 
+## Pre-requisites
+
+* JDK 21+
+* Maven
+
+The service is using mu-server as the web framework, however this has been abstracted away so you can focus on the coding exercise itself.
+
+### Reference
 mu-server documentation: https://muserver.io/
 
-## Coding exrercise: Product UI Microservice
+## Test
 
 You are writing a small microservice that provides UI-ready information about **Products** combined with **Inventory** data.
 
@@ -10,7 +18,7 @@ You are writing a small microservice that provides UI-ready information about **
 
   > GET /ui/products?ids=1,2,5 — returns product info for the requested product IDs in the **UI response format** (see below).
 
-* The microservice must call **two existing upstream REST APIs**:
+* The microservice must call **two existing upstream REST APIs** which have been mocked for you in the test folder (MockInventoryService and MockProductService):
   > GET /api/products/{id} — returns product core info (id, name, description, price).
 
   > GET /api/inventory/{id} — returns inventory info (productId, warehouse, qty, lastUpdated).
@@ -21,7 +29,7 @@ You are writing a small microservice that provides UI-ready information about **
 
     * Merge and augment the data (examples below).
 
-    * Return a combined JSON array to the UI.
+    * Return a combined JSON array to the UI (in the REST API - see below).
 
 ### Upstream sample responses
 
@@ -104,7 +112,6 @@ The microservice should return data in the following format:
     * `OUT_OF_STOCK` if qty = 0
     * `UNKNOWN` if inventory data is missing
 * If one **upstream fails** for a product, include the product with available data and put `null` for missing parts. Add an entry to the `errors` array with `id` and `message`.
-* Implementation must be `idiomatic` for the chosen stack (e.g Java or Kotlin)
 * Provide **unit tests** covering:
     * successful merge
     * missing inventory
