@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -43,6 +44,11 @@ class WebServerTest {
             @Produces(MediaType.TEXT_PLAIN)
             public String test() {
                 return "test";
+            }
+
+            @Override
+            public List<String> paths() {
+                return List.of("/test");
             }
         }
 
