@@ -10,7 +10,27 @@ The service is using mu-server as the web framework, however this has been abstr
 ### Reference
 mu-server documentation: https://muserver.io/
 
-## Test
+## Getting Started
+
+* Clone the repository:
+  ```bash
+  git clone https://github.com/sunil99/cto-coding-java-muserver.git
+  cd cto-coding-java-muserver
+  ```
+* Run the build using:
+  ```bash
+  mvn clean install
+  ```
+* Run the tests using:
+  ```bash
+  mvn test
+  ```
+  
+* Use the LocalApp class to start the microservice. The logs will provide the URLs to access the endpoints.
+  > /test/java/LocalApp.java
+
+
+## The Coding Test
 
 You are writing a small microservice that provides UI-ready information about **Products** combined with **Inventory** data.
 
